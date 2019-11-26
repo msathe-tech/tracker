@@ -41,4 +41,10 @@ public class TimesheetController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable long id) {
+        repository.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
 }
