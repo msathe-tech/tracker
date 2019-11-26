@@ -4,6 +4,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/timesheets")
 public class TimesheetController {
@@ -21,6 +23,7 @@ public class TimesheetController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Timesheet> findById(@PathVariable long id) {
-        return ResponseEntity.ok(repository.findById(id).get());
+        return repository.findById(id).map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 }
